@@ -8,7 +8,7 @@ export default function Highlight({ text }) {
     <>
       {parts.map((part, i) =>
         part.startsWith("*") && part.endsWith("*") ? (
-          <span key={i} className="text-blue-700">
+          <span key={i} className="text-pink-600">
             {part.slice(1, -1)}
           </span>
         ) : (
