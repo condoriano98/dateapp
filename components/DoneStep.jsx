@@ -14,7 +14,7 @@ export default function DoneStep({ config, plan, theirName }) {
         particleCount: 80,
         spread: 70,
         startVelocity: 45,
-        colors: ["#e11d48", "#f472b6", "#fb7185", "#ffffff", "#fda4af"],
+        colors: ["#1d4ed8", "#3b82f6", "#0f172a", "#64748b", "#e2e8f0"],
         ...opts,
       });
 
@@ -30,12 +30,12 @@ export default function DoneStep({ config, plan, theirName }) {
   const line = config.line.replace("{theirName}", theirName);
 
   return (
-    <div className="animate-pop w-full max-w-xl rounded-3xl bg-white/70 p-9 text-center shadow-xl backdrop-blur-sm sm:p-12">
-      <h1 className="font-display text-5xl font-extrabold leading-tight tracking-tight text-[#3d0a16] sm:text-6xl">
+    <div className="animate-pop w-full max-w-xl rounded-2xl bg-white/80 p-9 text-center shadow-xl ring-1 ring-slate-200 backdrop-blur-sm sm:p-12">
+      <h1 className="font-display text-4xl font-bold leading-tight text-slate-900 sm:text-5xl">
         <Highlight text={config.heading} />
       </h1>
 
-      <p className="mt-4 text-lg text-[#7a3b46]">{line}</p>
+      <p className="mt-4 text-lg text-slate-600">{line}</p>
 
       {plan && (
         <dl className="mx-auto mt-8 max-w-sm space-y-3 text-left">
@@ -45,20 +45,18 @@ export default function DoneStep({ config, plan, theirName }) {
         </dl>
       )}
 
-      <p className="mt-8 text-sm text-[#7a3b46]/80">
-        I'll text you the details. 💌
-      </p>
+      <p className="mt-8 text-sm text-slate-500">I'll send a calendar invite.</p>
     </div>
   );
 }
 
 function Row({ label, value }) {
   return (
-    <div className="flex items-center justify-between rounded-2xl bg-white/60 px-5 py-3 ring-1 ring-white/70">
-      <dt className="text-xs font-semibold uppercase tracking-widest text-[#8a4452]">
+    <div className="flex items-center justify-between rounded-xl bg-slate-50 px-5 py-3 ring-1 ring-slate-200">
+      <dt className="text-xs font-semibold uppercase tracking-widest text-slate-500">
         {label}
       </dt>
-      <dd className="font-medium text-[#3d0a16]">{value}</dd>
+      <dd className="font-medium text-slate-900">{value}</dd>
     </div>
   );
 }

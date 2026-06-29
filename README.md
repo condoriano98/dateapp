@@ -2,8 +2,8 @@
 
 A playful two-step "ask someone on a date" site, personalized for Farrah:
 
-1. **The question** — "Will you spend the BOD meeting over dinner?" The **Yes** button
-   advances; the **No** button continuously dodges the cursor and can never be clicked.
+1. **The question** — "Will you spend the BOD meeting with me as ur assistant?" The **Yes**
+   button advances; the **No** button runs away from the cursor and can never be clicked.
 2. **Pick a time** — choose a day, a time (with snarky quips), and an activity
    (🍜 Mie · 🍦 Ice cream · 🥊 Tinju · 🏦 Rampok Bank · 🚨 buat keributan · ✨ Isi sendiri),
    then lock it in for a confetti confirmation.
@@ -14,7 +14,7 @@ Built with Next.js (App Router) + Tailwind CSS. Deploys to Vercel with zero conf
 
 All copy lives in one place: the `CONFIG` object at the top of
 [`app/page.js`](app/page.js) — names, the question, time options + quips, and the activity
-list. Wrap a word in `*asterisks*` in any heading to render it in rose italic
+list. Wrap a word in `*asterisks*` in any heading to render it in the accent color
 (e.g. `"Pick a *time*."`). `{theirName}` is substituted automatically.
 
 ## Run locally

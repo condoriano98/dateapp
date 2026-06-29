@@ -1,5 +1,5 @@
 /**
- * Renders a string where *words wrapped in asterisks* become rose italic accents,
+ * Renders a string where *words wrapped in asterisks* become accent-colored,
  * matching the highlighted display headings in the design.
  */
 export default function Highlight({ text }) {
@@ -8,7 +8,7 @@ export default function Highlight({ text }) {
     <>
       {parts.map((part, i) =>
         part.startsWith("*") && part.endsWith("*") ? (
-          <span key={i} className="italic text-rose-600">
+          <span key={i} className="text-blue-700">
             {part.slice(1, -1)}
           </span>
         ) : (

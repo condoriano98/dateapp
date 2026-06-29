@@ -51,14 +51,20 @@ export default function TimeStep({ config, onConfirm }) {
     onConfirm({ day: days[dayIndex].label, time, activity: activityLabel });
   };
 
+  const cardBase =
+    "shadow-sm ring-1 transition focus:outline-none";
+  const cardOff =
+    "bg-white/70 text-slate-900 ring-slate-200 hover:bg-white";
+  const cardOn = "bg-blue-700 text-white ring-blue-700 shadow-blue-700/20";
+
   return (
     <div className="animate-floatUp w-full max-w-3xl">
       <div className="text-center">
         <p className="eyebrow mb-4 text-xs sm:text-sm">{config.eyebrow}</p>
-        <h1 className="font-display text-5xl font-extrabold leading-tight tracking-tight text-[#3d0a16] sm:text-6xl">
+        <h1 className="font-display text-4xl font-bold leading-tight text-slate-900 sm:text-5xl">
           <Highlight text={config.heading} />
         </h1>
-        <p className="mx-auto mt-4 max-w-xl text-base text-[#7a3b46] sm:text-lg">
+        <p className="mx-auto mt-4 max-w-xl text-base text-slate-600 sm:text-lg">
           {config.subtitle}
         </p>
       </div>
@@ -74,10 +80,8 @@ export default function TimeStep({ config, onConfirm }) {
                 key={i}
                 type="button"
                 onClick={() => setDayIndex(i)}
-                className={`flex min-w-[84px] shrink-0 flex-col items-center rounded-2xl px-4 py-3 text-center shadow-sm ring-1 transition ${
-                  selected
-                    ? "bg-rose-600 text-white ring-rose-600 shadow-rose-600/30"
-                    : "bg-white/55 text-[#3d0a16] ring-white/70 hover:bg-white/80"
+                className={`flex min-w-[84px] shrink-0 flex-col items-center rounded-xl px-4 py-3 text-center ${cardBase} ${
+                  selected ? cardOn : cardOff
                 }`}
               >
                 <span className="text-xs font-semibold tracking-wider opacity-80">
@@ -95,7 +99,7 @@ export default function TimeStep({ config, onConfirm }) {
 
       {/* TIME */}
       <section className="mt-8">
-        <p className="eyebrow mb-3 text-xs">Time · Weeknight menu 🍝</p>
+        <p className="eyebrow mb-3 text-xs">Time</p>
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {config.times.map((t) => {
             const selected = time === t.time;
@@ -104,14 +108,12 @@ export default function TimeStep({ config, onConfirm }) {
                 key={t.time}
                 type="button"
                 onClick={() => setTime(t.time)}
-                className={`rounded-2xl px-5 py-4 text-left shadow-sm ring-1 transition ${
-                  selected
-                    ? "bg-rose-600 text-white ring-rose-600 shadow-rose-600/30"
-                    : "bg-white/55 text-[#3d0a16] ring-white/70 hover:bg-white/80"
+                className={`rounded-xl px-5 py-4 text-left ${cardBase} ${
+                  selected ? cardOn : cardOff
                 }`}
               >
                 <div className="font-display text-2xl font-bold">{t.time}</div>
-                <div className={`mt-1 text-sm ${selected ? "text-white/85" : "text-[#7a3b46]"}`}>
+                <div className={`mt-1 text-sm ${selected ? "text-white/85" : "text-slate-500"}`}>
                   {t.quip}
                 </div>
               </button>
@@ -131,10 +133,8 @@ export default function TimeStep({ config, onConfirm }) {
                 key={a.label}
                 type="button"
                 onClick={() => setActivityIndex(i)}
-                className={`flex items-center gap-3 rounded-2xl px-5 py-4 text-left shadow-sm ring-1 transition ${
-                  selected
-                    ? "bg-rose-600 text-white ring-rose-600 shadow-rose-600/30"
-                    : "bg-white/55 text-[#3d0a16] ring-white/70 hover:bg-white/80"
+                className={`flex items-center gap-3 rounded-xl px-5 py-4 text-left ${cardBase} ${
+                  selected ? cardOn : cardOff
                 }`}
               >
                 <span className="text-xl">{a.emoji}</span>
@@ -151,7 +151,7 @@ export default function TimeStep({ config, onConfirm }) {
             value={customText}
             onChange={(e) => setCustomText(e.target.value)}
             placeholder="Tulis sendiri… (apa pun yang kamu mau)"
-            className="mt-3 w-full rounded-2xl bg-white/70 px-5 py-4 text-[#3d0a16] shadow-sm ring-1 ring-white/70 outline-none placeholder:text-[#b08490] focus:ring-2 focus:ring-rose-400"
+            className="mt-3 w-full rounded-xl bg-white/80 px-5 py-4 text-slate-900 shadow-sm ring-1 ring-slate-200 outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500"
           />
         )}
       </section>
@@ -161,13 +161,13 @@ export default function TimeStep({ config, onConfirm }) {
         type="button"
         onClick={handleConfirm}
         disabled={!ready}
-        className={`mt-9 w-full rounded-full px-6 py-4 text-lg font-semibold text-white shadow-lg transition ${
+        className={`mt-9 w-full rounded-lg px-6 py-4 text-lg font-semibold text-white shadow-md transition ${
           ready
-            ? "cursor-pointer bg-rose-600 shadow-rose-600/30 hover:scale-[1.01] hover:bg-rose-500 active:scale-[0.99]"
-            : "cursor-not-allowed bg-rose-300/70"
+            ? "cursor-pointer bg-blue-700 shadow-blue-700/20 hover:scale-[1.01] hover:bg-blue-600 active:scale-[0.99]"
+            : "cursor-not-allowed bg-slate-300"
         }`}
       >
-        {ready ? "Lock it in 💕" : "Pick a time to continue"}
+        {ready ? "Confirm" : "Pick a time to continue"}
       </button>
     </div>
   );

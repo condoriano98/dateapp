@@ -17,11 +17,11 @@ export const CONFIG = {
   // ── Step 1: the question ──────────────────────────────────
   step1: {
     eyebrow: "A very important question",
-    // Wrap one word in *asterisks* to highlight it in rose italic.
-    question: "Will you spend the BOD meeting over *dinner*?",
+    // Wrap one word/phrase in *asterisks* to render it in the accent color.
+    question: "Will you spend the BOD meeting with me as ur *assistant*?",
     subtitle: "Take your time. Choose carefully. There is definitely a right answer.",
-    yesLabel: "Yes 💕",
-    noLabel: "No 😢",
+    yesLabel: "Yes",
+    noLabel: "No",
   },
 
   // ── Step 2: pick a time ───────────────────────────────────
@@ -29,7 +29,7 @@ export const CONFIG = {
     eyebrow: "Step 2 of 2",
     heading: "Pick a *time*.",
     subtitle:
-      "You said yes (legally binding). Now the fun part — when are we doing this?",
+      "You said yes. Now let's lock in a time that works for both of us.",
     daysToShow: 14,
     times: [
       { time: "5:00 PM", quip: "are we eating at a retirement home?" },
@@ -49,8 +49,8 @@ export const CONFIG = {
 
   // ── Step 3: confirmation ──────────────────────────────────
   step3: {
-    heading: "It's a *date*. 🎉",
-    line: "Can't wait, {theirName}! 💕",
+    heading: "It's a *BOD meeting*. 🚨",
+    line: "Looking forward to it, {theirName}.",
   },
 };
 
