@@ -1,69 +1,80 @@
 "use client";
 
 import { useState } from "react";
-import RunawayNoButton from "../components/RunawayNoButton";
-import Celebration from "../components/Celebration";
+import QuestionStep from "../components/QuestionStep";
+import TimeStep from "../components/TimeStep";
+import DoneStep from "../components/DoneStep";
 
 /**
  * ──────────────────────────────────────────────────────────────
  *  EDIT ME — all the copy lives here. Change names & text freely,
- *  then redeploy. Leave a value empty ("") to hide it.
+ *  then redeploy. {theirName} is substituted automatically.
  * ──────────────────────────────────────────────────────────────
  */
-const CONFIG = {
-  theirName: "Farrah", // the lucky recipient
-  subheading: "A very important question",
-  question: "Will you go on a date with me?",
-  yesLabel: "Yes 💕",
-  noLabel: "No 😢",
-  // {theirName} is replaced automatically below.
-  successMessage: "Yay! Can't wait, {theirName}! 💕",
-  footer:
-    "yes I made this website · yes I used AI · no I won't marry you immediately, let's go on a date first",
+export const CONFIG = {
+  theirName: "Farrah",
+
+  // ── Step 1: the question ──────────────────────────────────
+  step1: {
+    eyebrow: "A very important question",
+    // Wrap one word in *asterisks* to highlight it in rose italic.
+    question: "Will you spend the BOD meeting over *dinner*?",
+    subtitle: "Take your time. Choose carefully. There is definitely a right answer.",
+    yesLabel: "Yes 💕",
+    noLabel: "No 😢",
+  },
+
+  // ── Step 2: pick a time ───────────────────────────────────
+  step2: {
+    eyebrow: "Step 2 of 2",
+    heading: "Pick a *time*.",
+    subtitle:
+      "You said yes (legally binding). Now the fun part — when are we doing this?",
+    daysToShow: 14,
+    times: [
+      { time: "5:00 PM", quip: "are we eating at a retirement home?" },
+      { time: "7:00 PM", quip: "respectable. suspiciously respectable." },
+      { time: "8:00 PM", quip: "fair warning, I might be hangry" },
+      { time: "9:00 PM", quip: "this is past my bedtime, jk sleep is for the weak" },
+    ],
+    activities: [
+      { emoji: "🍜", label: "Mie" },
+      { emoji: "🍦", label: "Ice cream" },
+      { emoji: "🥊", label: "Tinju" },
+      { emoji: "🏦", label: "Rampok Bank" },
+      { emoji: "🚨", label: "buat keributan" },
+      { emoji: "✨", label: "(Isi sendiri)", custom: true },
+    ],
+  },
+
+  // ── Step 3: confirmation ──────────────────────────────────
+  step3: {
+    heading: "It's a *date*. 🎉",
+    line: "Can't wait, {theirName}! 💕",
+  },
 };
 
 export default function Page() {
-  const [accepted, setAccepted] = useState(false);
-
-  if (accepted) {
-    return (
-      <Celebration
-        message={CONFIG.successMessage.replace("{theirName}", CONFIG.theirName)}
-      />
-    );
-  }
+  const [step, setStep] = useState("question"); // question | time | done
+  const [plan, setPlan] = useState(null); // { day, time, activity }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center px-6 py-16">
-      <div className="animate-floatUp w-full max-w-xl rounded-3xl bg-white/70 p-8 text-center shadow-xl backdrop-blur-sm sm:p-12">
-        {CONFIG.subheading && (
-          <p className="mb-3 text-sm font-medium uppercase tracking-widest text-pink-500">
-            {CONFIG.subheading}
-          </p>
-        )}
-
-        <h1 className="text-3xl font-extrabold leading-tight text-pink-700 sm:text-4xl">
-          {CONFIG.question}
-        </h1>
-
-        <div className="relative mt-10 flex flex-wrap items-center justify-center gap-4">
-          <button
-            type="button"
-            onClick={() => setAccepted(true)}
-            className="rounded-full bg-pink-600 px-8 py-3 text-lg font-semibold text-white shadow-lg transition hover:scale-105 hover:bg-pink-500 active:scale-95"
-          >
-            {CONFIG.yesLabel}
-          </button>
-
-          <RunawayNoButton label={CONFIG.noLabel} />
-        </div>
-      </div>
-
-      {CONFIG.footer && (
-        <p className="mt-8 max-w-md px-4 text-center text-xs leading-relaxed text-pink-700/70">
-          {CONFIG.footer}
-        </p>
+    <main className="flex min-h-screen flex-col items-center justify-center px-5 py-12 sm:py-16">
+      {step === "question" && (
+        <QuestionStep config={CONFIG.step1} onYes={() => setStep("time")} />
       )}
+
+      {step === "time" && (
+        <TimeStep
+          config={CONFIG.step2}
+          onConfirm={(selection) => {
+            setPlan(selection);
+            setStep("done");
+          }}
+        />
+      )}
+
+      {step === "done" && <DoneStep config={CONFIG.step3} plan={plan} theirName={CONFIG.theirName} />}
     </main>
   );
 }

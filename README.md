@@ -1,31 +1,21 @@
 # A Very Important Question 💕
 
-A playful single-page "will you go on a date with me?" site — Yes celebrates with
-confetti, and the No button runs away so it can never be clicked. Built with
-Next.js + Tailwind CSS, deploys to Vercel with zero config.
+A playful two-step "ask someone on a date" site, personalized for Farrah:
 
-Inspired by `date-quiz--dont-worry-it-is-pass-fail.com`.
+1. **The question** — "Will you spend the BOD meeting over dinner?" The **Yes** button
+   advances; the **No** button continuously dodges the cursor and can never be clicked.
+2. **Pick a time** — choose a day, a time (with snarky quips), and an activity
+   (🍜 Mie · 🍦 Ice cream · 🥊 Tinju · 🏦 Rampok Bank · 🚨 buat keributan · ✨ Isi sendiri),
+   then lock it in for a confetti confirmation.
+
+Built with Next.js (App Router) + Tailwind CSS. Deploys to Vercel with zero config.
 
 ## Customize it
 
-All the copy lives in one place: the `CONFIG` object at the top of
-[`app/page.js`](app/page.js). Edit the names and text, then redeploy:
-
-```js
-const CONFIG = {
-  yourName: "Your Name",
-  theirName: "Their Name",
-  subheading: "A very important question",
-  question: "Will you go on a date with me?",
-  yesLabel: "Yes 💕",
-  noLabel: "No 😢",
-  successMessage: "Yay! Can't wait, {theirName}! 💕",
-  footer: "yes I made this website · yes I used AI · ...",
-};
-```
-
-`{theirName}` in `successMessage` is replaced automatically. Set any field to `""`
-to hide it.
+All copy lives in one place: the `CONFIG` object at the top of
+[`app/page.js`](app/page.js) — names, the question, time options + quips, and the activity
+list. Wrap a word in `*asterisks*` in any heading to render it in rose italic
+(e.g. `"Pick a *time*."`). `{theirName}` is substituted automatically.
 
 ## Run locally
 
@@ -37,5 +27,5 @@ npm run dev
 
 ## Deploy
 
-Push to GitHub and import the repo at [vercel.com](https://vercel.com), or run
-`vercel --prod`. Next.js is auto-detected — no configuration needed.
+Push to GitHub and import the repo at [vercel.com/new](https://vercel.com/new). Next.js is
+auto-detected — no configuration needed. Every push to `main` then auto-deploys.

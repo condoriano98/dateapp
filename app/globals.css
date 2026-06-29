@@ -14,8 +14,23 @@ body {
   min-height: 100vh;
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
-  background: linear-gradient(135deg, #ffe4ef 0%, #ffd1e8 35%, #ffc2dd 70%, #f9a8d4 100%);
+  color: #3d0a16;
+  background: linear-gradient(135deg, #ffe1cf 0%, #ffd7e6 45%, #ffc1de 75%, #f7a8d0 100%);
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Display serif used for the big headings (Playfair Display, Georgia fallback). */
+.font-display {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+}
+
+/* Small uppercase section labels. */
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  font-weight: 700;
+  color: #8a4452;
 }
 
 @keyframes floatUp {
@@ -30,7 +45,7 @@ body {
 }
 
 .animate-floatUp {
-  animation: floatUp 0.6s ease-out both;
+  animation: floatUp 0.55s ease-out both;
 }
 
 @keyframes pop {
@@ -47,4 +62,13 @@ body {
 
 .animate-pop {
   animation: pop 0.45s ease-out both;
+}
+
+/* Hide scrollbar on the horizontal day strip while keeping it scrollable. */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
