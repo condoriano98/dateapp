@@ -25,7 +25,7 @@ export default function QuestionStep({ config, onYes }) {
         <button
           type="button"
           onClick={onYes}
-          className="rounded-lg bg-blue-700 px-10 py-3.5 text-lg font-semibold text-white shadow-md shadow-blue-700/20 transition hover:scale-[1.03] hover:bg-blue-600 active:scale-95"
+          className="rounded-lg bg-pink-600 px-10 py-3.5 text-lg font-semibold text-white shadow-md shadow-pink-600/20 transition hover:scale-[1.03] hover:bg-pink-500 active:scale-95"
         >
           {config.yesLabel}
         </button>

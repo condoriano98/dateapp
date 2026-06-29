@@ -14,7 +14,7 @@ export default function DoneStep({ config, plan, theirName }) {
         particleCount: 80,
         spread: 70,
         startVelocity: 45,
-        colors: ["#1d4ed8", "#3b82f6", "#0f172a", "#64748b", "#e2e8f0"],
+        colors: ["#db2777", "#ec4899", "#f9a8d4", "#0f172a", "#e2e8f0"],
         ...opts,
       });
 

@@ -55,7 +55,7 @@ export default function TimeStep({ config, onConfirm }) {
     "shadow-sm ring-1 transition focus:outline-none";
   const cardOff =
     "bg-white/70 text-slate-900 ring-slate-200 hover:bg-white";
-  const cardOn = "bg-blue-700 text-white ring-blue-700 shadow-blue-700/20";
+  const cardOn = "bg-pink-600 text-white ring-pink-600 shadow-pink-600/20";
 
   return (
     <div className="animate-floatUp w-full max-w-3xl">
@@ -151,7 +151,7 @@ export default function TimeStep({ config, onConfirm }) {
             value={customText}
             onChange={(e) => setCustomText(e.target.value)}
             placeholder="Tulis sendiri… (apa pun yang kamu mau)"
-            className="mt-3 w-full rounded-xl bg-white/80 px-5 py-4 text-slate-900 shadow-sm ring-1 ring-slate-200 outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500"
+            className="mt-3 w-full rounded-xl bg-white/80 px-5 py-4 text-slate-900 shadow-sm ring-1 ring-slate-200 outline-none placeholder:text-slate-400 focus:ring-2 focus:ring-pink-400"
           />
         )}
       </section>
@@ -163,7 +163,7 @@ export default function TimeStep({ config, onConfirm }) {
         disabled={!ready}
         className={`mt-9 w-full rounded-lg px-6 py-4 text-lg font-semibold text-white shadow-md transition ${
           ready
-            ? "cursor-pointer bg-blue-700 shadow-blue-700/20 hover:scale-[1.01] hover:bg-blue-600 active:scale-[0.99]"
+            ? "cursor-pointer bg-pink-600 shadow-pink-600/20 hover:scale-[1.01] hover:bg-pink-500 active:scale-[0.99]"
             : "cursor-not-allowed bg-slate-300"
         }`}
       >

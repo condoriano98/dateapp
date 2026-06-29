@@ -21,7 +21,7 @@ export default function AdminPage() {
           <p className="eyebrow text-xs">Admin</p>
           <h1 className="font-display text-3xl font-bold text-slate-900 sm:text-4xl">
             Responses{" "}
-            <span className="text-blue-700">
+            <span className="text-pink-600">
               {loaded ? `(${rows.length})` : ""}
             </span>
           </h1>
@@ -57,7 +57,7 @@ export default function AdminPage() {
       {loaded && rows.length === 0 && (
         <div className="mt-8 rounded-xl bg-white/70 p-8 text-center text-slate-500 shadow-sm ring-1 ring-slate-200">
           No responses yet. Complete the flow on the{" "}
-          <a href="/" className="font-semibold text-blue-700 underline">
+          <a href="/" className="font-semibold text-pink-600 underline">
             home page
           </a>{" "}
           and they'll appear here.
@@ -71,7 +71,7 @@ export default function AdminPage() {
             className="rounded-xl bg-white/80 p-5 shadow-sm ring-1 ring-slate-200"
           >
             <div className="flex items-center justify-between">
-              <span className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-blue-700">
+              <span className="rounded-full bg-pink-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-pink-600">
                 {r.answer || "yes"}
               </span>
               <span className="text-xs text-slate-400">
