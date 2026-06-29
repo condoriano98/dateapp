@@ -4,6 +4,7 @@ import { useState } from "react";
 import QuestionStep from "../components/QuestionStep";
 import TimeStep from "../components/TimeStep";
 import DoneStep from "../components/DoneStep";
+import { logResponse } from "../lib/responseLog";
 
 /**
  * ──────────────────────────────────────────────────────────────
@@ -68,6 +69,7 @@ export default function Page() {
         <TimeStep
           config={CONFIG.step2}
           onConfirm={(selection) => {
+            logResponse({ answer: "yes", ...selection });
             setPlan(selection);
             setStep("done");
           }}

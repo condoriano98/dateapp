@@ -17,6 +17,16 @@ All copy lives in one place: the `CONFIG` object at the top of
 list. Wrap a word in `*asterisks*` in any heading to render it in the accent color
 (e.g. `"Pick a *time*."`). `{theirName}` is substituted automatically.
 
+## Seeing responses
+
+When someone confirms, the chosen day/time/activity is printed to the browser
+**DevTools console** and saved to that browser's **localStorage**. Visit **`/admin`**
+to see a list of those responses (with a Refresh and Clear button).
+
+Note: localStorage is per-browser, so `/admin` shows confirmations made on the same
+browser/device — it does not collect submissions from other people's phones (that would
+need a backend/database).
+
 ## Run locally
 
 ```bash
