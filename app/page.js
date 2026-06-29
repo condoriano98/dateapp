@@ -11,8 +11,7 @@ import Celebration from "../components/Celebration";
  * ──────────────────────────────────────────────────────────────
  */
 const CONFIG = {
-  yourName: "{YOUR_NAME}", // your name (used in the footer attribution)
-  theirName: "{THEIR_NAME}", // the lucky recipient
+  theirName: "Farrah", // the lucky recipient
   subheading: "A very important question",
   question: "Will you go on a date with me?",
   yesLabel: "Yes 💕",
