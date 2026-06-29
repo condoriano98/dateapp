@@ -69,7 +69,14 @@ export default function Page() {
         <TimeStep
           config={CONFIG.step2}
           onConfirm={(selection) => {
-            logResponse({ answer: "yes", ...selection });
+            const entry = { answer: "yes", ...selection };
+            logResponse(entry); // console + localStorage fallback
+            // Persist to the shared backend so it shows across all devices.
+            fetch("/api/responses", {
+              method: "POST",
+              headers: { "content-type": "application/json" },
+              body: JSON.stringify(entry),
+            }).catch(() => {});
             setPlan(selection);
             setStep("done");
           }}

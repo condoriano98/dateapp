@@ -19,13 +19,24 @@ list. Wrap a word in `*asterisks*` in any heading to render it in the accent col
 
 ## Seeing responses
 
-When someone confirms, the chosen day/time/activity is printed to the browser
-**DevTools console** and saved to that browser's **localStorage**. Visit **`/admin`**
-to see a list of those responses (with a Refresh and Clear button).
+Visit **`/admin`** to see confirmations (with Refresh and Clear buttons). Each confirmation
+is also printed to the browser **DevTools console**.
 
-Note: localStorage is per-browser, so `/admin` shows confirmations made on the same
-browser/device — it does not collect submissions from other people's phones (that would
-need a backend/database).
+### Cross-device storage (Vercel KV / Upstash Redis)
+
+To collect responses from **all devices** in one place, add a Redis store and set its env
+vars — the app uses them automatically:
+
+1. In the Vercel dashboard → your project → **Storage** → add **Upstash for Redis** (a.k.a.
+   Vercel KV). Connect it to the project.
+2. That adds the env vars automatically. The app reads either naming:
+   `KV_REST_API_URL` + `KV_REST_API_TOKEN`, or `UPSTASH_REDIS_REST_URL` +
+   `UPSTASH_REDIS_REST_TOKEN`.
+3. Redeploy. `/admin` will now show submissions from every device.
+
+If those env vars are absent, the app falls back to a per-browser **localStorage** log so it
+still works locally. (Note: the `/api/responses` GET endpoint is open; the stored plans are
+low-sensitivity, but don't put secrets in it.)
 
 ## Run locally
 

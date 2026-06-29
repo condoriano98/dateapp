@@ -6,13 +6,40 @@ import { readResponses, clearResponses } from "../../lib/responseLog";
 export default function AdminPage() {
   const [rows, setRows] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [source, setSource] = useState("local"); // "all" (backend) | "local"
 
-  const refresh = () => setRows(readResponses().slice().reverse());
+  const load = async () => {
+    setLoaded(false);
+    try {
+      const res = await fetch("/api/responses", { cache: "no-store" });
+      const data = await res.json();
+      if (data.configured) {
+        setSource("all");
+        setRows(data.responses || []); // newest first (lpush prepends)
+        setLoaded(true);
+        return;
+      }
+    } catch {
+      // network/backend unavailable — fall through to localStorage
+    }
+    setSource("local");
+    setRows(readResponses().slice().reverse());
+    setLoaded(true);
+  };
 
   useEffect(() => {
-    refresh();
-    setLoaded(true);
+    load();
   }, []);
+
+  const handleClear = async () => {
+    if (!confirm("Clear all logged responses?")) return;
+    if (source === "all") {
+      await fetch("/api/responses", { method: "DELETE" }).catch(() => {});
+    } else {
+      clearResponses();
+    }
+    load();
+  };
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-3xl px-5 py-12">
@@ -29,19 +56,14 @@ export default function AdminPage() {
         <div className="flex gap-2">
           <button
             type="button"
-            onClick={refresh}
+            onClick={load}
             className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm ring-1 ring-slate-300 transition hover:bg-slate-50"
           >
             Refresh
           </button>
           <button
             type="button"
-            onClick={() => {
-              if (confirm("Clear all logged responses on this browser?")) {
-                clearResponses();
-                refresh();
-              }
-            }}
+            onClick={handleClear}
             className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-rose-600 shadow-sm ring-1 ring-rose-200 transition hover:bg-rose-50"
           >
             Clear
@@ -50,8 +72,17 @@ export default function AdminPage() {
       </div>
 
       <p className="mt-3 text-sm text-slate-500">
-        Shows confirmations recorded in <strong>this browser</strong> (localStorage). Each
-        confirmation is also printed to the DevTools console.
+        {source === "all" ? (
+          <>
+            Showing confirmations from <strong>all devices</strong> (shared backend).
+          </>
+        ) : (
+          <>
+            Backend not configured — showing confirmations from <strong>this browser</strong>{" "}
+            only (localStorage). Add the storage env vars to collect responses from every
+            device.
+          </>
+        )}
       </p>
 
       {loaded && rows.length === 0 && (
