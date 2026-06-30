@@ -36,7 +36,23 @@ To collect responses from **all devices** for free using a Google account (no da
 Now every confirmation is appended to the sheet's "Responses" tab, and `/admin` shows
 submissions from every device.
 
-Alternatively, the app also supports **Upstash Redis / Vercel KV** if you set
+### Cross-device storage — free, via Supabase
+
+Prefer a real database? Supabase has a free tier (no card):
+
+1. Create a project at [supabase.com](https://supabase.com).
+2. **SQL Editor** → run the contents of [`supabase-schema.sql`](supabase-schema.sql) (creates the
+   `responses` table).
+3. **Project Settings → API** → copy the **Project URL** and the **`service_role`** key.
+4. In **Vercel → Settings → Environment Variables**, add `SUPABASE_URL` and
+   `SUPABASE_SERVICE_ROLE_KEY`. Redeploy.
+
+The app talks to Supabase server-side with the service role key (kept out of the browser), so
+`/admin` shows responses from all devices. If both Supabase and Sheets are set, Supabase wins.
+
+### Other backends
+
+The app also supports **Upstash Redis / Vercel KV** if you set
 `KV_REST_API_URL` + `KV_REST_API_TOKEN` (or `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`).
 
 If no backend env vars are set, the app falls back to a per-browser **localStorage** log so it
