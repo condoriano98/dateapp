@@ -22,21 +22,26 @@ list. Wrap a word in `*asterisks*` in any heading to render it in the accent col
 Visit **`/admin`** to see confirmations (with Refresh and Clear buttons). Each confirmation
 is also printed to the browser **DevTools console**.
 
-### Cross-device storage (Vercel KV / Upstash Redis)
+### Cross-device storage — free, via Google Sheets
 
-To collect responses from **all devices** in one place, add a Redis store and set its env
-vars — the app uses them automatically:
+To collect responses from **all devices** for free using a Google account (no database):
 
-1. In the Vercel dashboard → your project → **Storage** → add **Upstash for Redis** (a.k.a.
-   Vercel KV). Connect it to the project.
-2. That adds the env vars automatically. The app reads either naming:
-   `KV_REST_API_URL` + `KV_REST_API_TOKEN`, or `UPSTASH_REDIS_REST_URL` +
-   `UPSTASH_REDIS_REST_TOKEN`.
-3. Redeploy. `/admin` will now show submissions from every device.
+1. Create a Google Sheet.
+2. **Extensions → Apps Script**, paste the contents of [`google-apps-script.gs`](google-apps-script.gs), Save.
+3. **Deploy → New deployment → Web app** — *Execute as: Me*, *Who has access: Anyone* — Deploy,
+   authorize, and copy the **Web app URL**.
+4. In **Vercel → project → Settings → Environment Variables**, add
+   **`SHEET_WEBAPP_URL`** = that URL. Redeploy.
 
-If those env vars are absent, the app falls back to a per-browser **localStorage** log so it
-still works locally. (Note: the `/api/responses` GET endpoint is open; the stored plans are
-low-sensitivity, but don't put secrets in it.)
+Now every confirmation is appended to the sheet's "Responses" tab, and `/admin` shows
+submissions from every device.
+
+Alternatively, the app also supports **Upstash Redis / Vercel KV** if you set
+`KV_REST_API_URL` + `KV_REST_API_TOKEN` (or `UPSTASH_REDIS_REST_URL` + `UPSTASH_REDIS_REST_TOKEN`).
+
+If no backend env vars are set, the app falls back to a per-browser **localStorage** log so it
+still works locally. (Note: the `/api/responses` GET endpoint is open; stored plans are
+low-sensitivity — don't put secrets in it.)
 
 ## Run locally
 

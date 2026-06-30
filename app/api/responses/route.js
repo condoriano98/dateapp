@@ -1,4 +1,4 @@
-import { getRedis, RESPONSES_KEY } from "../../../lib/kv";
+import { getStorage } from "../../../lib/storage";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -21,44 +21,45 @@ export async function POST(request) {
     at: new Date().toISOString(),
   };
 
-  const redis = getRedis();
-  if (!redis) {
+  const store = getStorage();
+  if (!store) {
     // Backend not configured yet — acknowledge without persisting.
     return Response.json({ ok: true, stored: false, entry });
   }
 
-  await redis.lpush(RESPONSES_KEY, JSON.stringify(entry));
-  return Response.json({ ok: true, stored: true, entry });
+  try {
+    await store.save(entry);
+    return Response.json({ ok: true, stored: true, entry });
+  } catch (err) {
+    return Response.json({ ok: false, stored: false, error: String(err) }, { status: 502 });
+  }
 }
 
 // List every confirmation across all devices (for the /admin page).
 export async function GET() {
-  const redis = getRedis();
-  if (!redis) {
+  const store = getStorage();
+  if (!store) {
     return Response.json({ configured: false, responses: [] });
   }
 
-  const raw = await redis.lrange(RESPONSES_KEY, 0, -1);
-  const responses = raw
-    .map((r) => {
-      if (r && typeof r === "object") return r; // SDK may auto-parse JSON
-      try {
-        return JSON.parse(r);
-      } catch {
-        return null;
-      }
-    })
-    .filter(Boolean);
-
-  return Response.json({ configured: true, responses });
+  try {
+    const responses = await store.list();
+    return Response.json({ configured: true, responses });
+  } catch (err) {
+    return Response.json({ configured: true, responses: [], error: String(err) }, { status: 502 });
+  }
 }
 
 // Clear every stored confirmation (used by the admin "Clear" button).
 export async function DELETE() {
-  const redis = getRedis();
-  if (!redis) {
+  const store = getStorage();
+  if (!store) {
     return Response.json({ ok: true, cleared: false });
   }
-  await redis.del(RESPONSES_KEY);
-  return Response.json({ ok: true, cleared: true });
+  try {
+    await store.clear();
+    return Response.json({ ok: true, cleared: true });
+  } catch (err) {
+    return Response.json({ ok: false, cleared: false, error: String(err) }, { status: 502 });
+  }
 }
