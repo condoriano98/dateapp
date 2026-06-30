@@ -43,12 +43,14 @@ Prefer a real database? Supabase has a free tier (no card):
 1. Create a project at [supabase.com](https://supabase.com).
 2. **SQL Editor** → run the contents of [`supabase-schema.sql`](supabase-schema.sql) (creates the
    `responses` table).
-3. **Project Settings → API** → copy the **Project URL** and the **`service_role`** key.
-4. In **Vercel → Settings → Environment Variables**, add `SUPABASE_URL` and
-   `SUPABASE_SERVICE_ROLE_KEY`. Redeploy.
+3. **Project Settings → API** → copy the **Project URL** and a key — either the
+   **`service_role`** secret (most private, bypasses RLS) or the **publishable/anon** key
+   (then keep the RLS policies from the SQL).
+4. In **Vercel → Settings → Environment Variables**, add `SUPABASE_URL` and `SUPABASE_KEY`
+   (the key from step 3). Redeploy.
 
-The app talks to Supabase server-side with the service role key (kept out of the browser), so
-`/admin` shows responses from all devices. If both Supabase and Sheets are set, Supabase wins.
+The key is used **server-side only** (never shipped to the browser), so `/admin` shows responses
+from all devices. If both Supabase and Sheets are set, Supabase wins.
 
 ### Other backends
 
